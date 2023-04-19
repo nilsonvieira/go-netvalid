@@ -32,5 +32,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GO_RELEASE_GITHUB_TOKEN }}
 
+    - name: Use tag
+      run: echo ${{steps.tag.outputs.tag}}
+
    # - name: Test
    #   run: go test -v ./...
