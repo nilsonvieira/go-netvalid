@@ -25,6 +25,7 @@ jobs:
       run: go build -o netvalid -v main.go
 
     - name: Run Release
+      uses: actions/setup-go@v3
       with:
         version: latest
         args: release --rm-dist
