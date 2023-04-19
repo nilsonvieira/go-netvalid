@@ -6,17 +6,16 @@ import (
 	"net"
 	"net/http"
 	"net/url"
-	"os"
+	"netvalid/arguments"
 	"os/exec"
 )
 
-var URL = os.Args[1]
-var RR = os.Args[2]
+var URL string = arguments.ArgURL()
+var RR string = arguments.ArgRR()
 
 func GetHostname() {
-	input := URL
 
-	url, err := url.Parse(input)
+	url, err := url.Parse(URL)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -46,9 +45,8 @@ func StatusCode() {
 }
 
 func StatusK8sNode() {
-	input := URL
 
-	url, err := url.Parse(input)
+	url, err := url.Parse(URL)
 	if err != nil {
 		log.Fatal(err)
 	}
