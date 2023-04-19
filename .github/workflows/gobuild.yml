@@ -8,6 +8,8 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  release:
+    types: [ created ]
 
 jobs:
 
@@ -24,31 +26,24 @@ jobs:
     - name: Build
       run: go build -o netvalid -v main.go
 
-  name: Release TBB binaries
-
-  on:
-    release:
-      types: [created]
-
-  jobs:
-    releases-matrix:
-      name: Release Go Binary
-      runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          # build and publish in parallel: linux/amd64
-          goos: [linux]
-          goarch: [amd64]
-      steps:
-        - uses: actions/setup-go@v3
-          with:
-            github_token: ${{ secrets.GO_RELEASE_GITHUB_TOKEN }}
-            goos: ${{ matrix.goos }}
-            goarch: ${{ matrix.goarch }}
-            project_path: "./binary"
-            binary_name: "netvalid"
-            ldflags: "-s -w"
-            extra_files: Readme.md
+  releases-matrix:
+    name: Release Go Binary
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        # build and publish in parallel: linux/amd64
+        goos: [linux]
+        goarch: [amd64]
+    steps:
+      - uses: actions/setup-go@v3
+        with:
+          github_token: ${{ secrets.GO_RELEASE_GITHUB_TOKEN }}
+          goos: ${{ matrix.goos }}
+          goarch: ${{ matrix.goarch }}
+          project_path: "./binary"
+          binary_name: "netvalid"
+          ldflags: "-s -w"
+          extra_files: Readme.md
 
     #- name: Run Release
     #  uses: actions/setup-go@v3
