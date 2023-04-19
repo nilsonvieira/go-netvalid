@@ -25,7 +25,6 @@ jobs:
       run: go build -o netvalid -v main.go
 
     - name: Run Release
-      uses: nilsonvieira/go-netvalid@main
       with:
         version: latest
         args: release --rm-dist
