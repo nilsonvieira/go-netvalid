@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"netvalid/arguments"
 	"os/exec"
+	"runtime"
 )
 
 var URL string = arguments.ArgURL()
@@ -45,6 +46,7 @@ func StatusCode() {
 }
 
 func StatusK8sNode() {
+	fmt.Println("until here")
 
 	url, err := url.Parse(URL)
 	if err != nil {
@@ -54,7 +56,15 @@ func StatusK8sNode() {
 	HostK8s := "Host: " + url.Host
 	TS3RR01 := RR + url.Path
 
-	var CURL = "curl -IH " + "'" + HostK8s + "' " + TS3RR01
+	curlCommand := "curl"
+
+	if runtime.GOOS == "windows" {
+		// On Windows, we have an executable called "curl.exe", which behaves the same as the command "curl" on Linux.
+		curlCommand = "curl.exe"
+	}
+
+	var CURL = curlCommand + " -IH " + "'" + HostK8s + "' " + TS3RR01
+	fmt.Println("COMANDO: ", CURL)
 
 	out, err := exec.Command("bash", "-c", CURL).Output()
 

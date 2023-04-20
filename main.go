@@ -3,15 +3,12 @@ package main
 import (
 	"fmt"
 	"netvalid/configs"
-	"runtime"
 )
 
 func main() {
-	if runtime.GOOS == "windows" {
-		fmt.Println("Execute in MacOs or Linux Operational System Only!")
-	} else {
-		configs.GetHostname()
-		configs.StatusCode()
-		configs.StatusK8sNode()
-	}
+	configs.GetHostname()
+	fmt.Println("Got hostname")
+	configs.StatusCode()
+	fmt.Println("Got statuscode")
+	configs.StatusK8sNode()
 }
