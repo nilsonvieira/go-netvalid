@@ -46,7 +46,6 @@ func StatusCode() {
 }
 
 func StatusK8sNode() {
-	fmt.Println("until here")
 
 	url, err := url.Parse(URL)
 	if err != nil {
@@ -64,7 +63,6 @@ func StatusK8sNode() {
 	}
 
 	var CURL = curlCommand + " -IH " + "'" + HostK8s + "' " + TS3RR01
-	fmt.Println("COMANDO: ", CURL)
 
 	out, err := exec.Command("bash", "-c", CURL).Output()
 
